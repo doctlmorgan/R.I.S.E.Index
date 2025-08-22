@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RISE Index – Reflexive Inquiry for Systemic Equity</title>
+  <style>
+    :root{--ink:#111;--muted:#555;--border:#ddd;--bg:#fff}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--ink);background:var(--bg)}
+    h1{font-size:34px;margin:0 0 6px} h2{margin:0 0 8px}
+    p{line-height:1.55}
+    .muted{color:var(--muted)}
+    .wrap{max-width:1080px;margin:0 auto;padding:28px}
+    .page{display:none}
+    .page.active{display:block}
+    .hero{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+    .hero img{max-width:260px;height:auto}
+    fieldset{border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0}
+    legend{padding:0 8px;color:var(--muted)}
+    .grid{display:grid;gap:10px}
+    .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .opt{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--border);border-radius:10px;cursor:pointer}
+    .opt input{accent-color:#000}
+    .opt.sel{border-color:#000}
+    .actions{display:flex;gap:8px;align-items:center;margin-top:6px}
+    .btn{appearance:none;border:1px solid #000;background:#000;color:#fff;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn.secondary{background:#fff;color:#000}
+    .btn[disabled]{opacity:.5;cursor:not-allowed}
+    .progressbar{display:flex;align-items:center;gap:8px;margin-top:16px}
+    .track{flex:1;height:10px;background:#eee;border-radius:999px;overflow:hidden}
+    .bar{height:10px;width:0;background:#000}
+    .pct{font-size:12px;color:var(--muted);min-width:42px;text-align:right}
+    .results{border:1px solid var(--border);border-radius:12px;padding:14px;background:#fff}
+    .small{font-size:12px}
+    input[type="text"], input[type="email"]{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- PAGE 1: INTRO -->
+  <section class="page active" id="page-1">
+    <div class="hero">
+      <!-- Swap src to "RISE INDEX LOGO.png" if you prefer a file -->
+      <img src="PASTE_BASE64_LOGO_HERE" alt="RISE Index Logo"/>
+      <div>
+        <h1>RISE INDEX™</h1>
+        <div class="muted">Reflexive Inquiry for Systemic Equity</div>
+      </div>
+    </div>
+
+    <p>The RISE Index (Reflexive Inquiry for Systemic Equity) is a reflective leadership assessment designed to illuminate how equity principles show up in your professional practice, decision-making, and institutional context. Grounded in critical race theory, systems thinking, and transformative leadership, this tool invites you to pause, reflect, and examine how your leadership aligns with liberatory values. The index is not about perfection or performance—it is about practice. Your responses offer insight into your strengths, growth edges, and the conditions you are navigating. The goal is not to be judged, but to build greater awareness, alignment, and accountability as a change agent in complex systems.</p>
+
+    <h3>What to Expect</h3>
+    <ul>
+      <li>Reality Reckoning (seeing systems clearly)</li>
+      <li>Indeterminate Becoming (embracing growth, ambiguity, and reflexivity)</li>
+      <li>Disruptive Engagement (challenging harm and acting in solidarity)</li>
+      <li>Emancipatory Shift (transforming structures toward justice)</li>
+      <li>Radical Renewal (leading sustainably through healing and relationship)</li>
+    </ul>
+    <p>Some statements may feel familiar. Others may surface discomfort. All are designed to deepen your critical awareness and support your equity journey.</p>
+
+    <h3>🔄 Response Instructions</h3>
+    <ul>
+      <li>4 – Very much like me</li>
+      <li>3 – Somewhat like me</li>
+      <li>2 – Not much like me</li>
+      <li>1 – Not at all like me</li>
+    </ul>
+    <p><em>There are no right or wrong answers. Respond honestly and intuitively—this is for your growth.</em></p>
+
+    <div class="actions">
+      <button class="btn" onclick="nextPage()">Begin</button>
+    </div>
+    <div class="progressbar">
+      <div class="track"><div class="bar" id="bar-1"></div></div><div class="pct" id="pct-1">0%</div>
+    </div>
+  </section>
+
+  <!-- PAGE 2: DEMOGRAPHICS -->
+  <section class="page" id="page-2">
+    <h2>Participant Information</h2>
+    <form id="demo-form">
+      <fieldset>
+        <legend>Race and/or Ethnicity <span class="muted">(Check all that apply)</span></legend>
+        <div class="grid g2">
+          <label><input type="checkbox" name="race" value="Black / African American"> Black / African American</label>
+          <label><input type="checkbox" name="race" value="Latine / Latinx / Hispanic"> Latine / Latinx / Hispanic</label>
+          <label><input type="checkbox" name="race" value="Native American / Indigenous / First Nations"> Native American / Indigenous / First Nations</label>
+          <label><input type="checkbox" name="race" value="Asian (East, South, Southeast, Central)"> Asian (East, South, Southeast, Central)</label>
+          <label><input type="checkbox" name="race" value="Middle Eastern or North African"> Middle Eastern or North African</label>
+          <label><input type="checkbox" name="race" value="Pacific Islander / Native Hawaiian"> Pacific Islander / Native Hawaiian</label>
+          <label><input type="checkbox" name="race" value="White / European descent"> White / European descent</label>
+          <label><input type="checkbox" name="race" value="Multiracial or Multiethnic"> Multiracial or Multiethnic</label>
+          <label><input type="checkbox" name="race" value="Prefer not to say"> Prefer not to say</label>
+        </div>
+        <div style="margin-top:8px"><input id="raceOther" placeholder="Other (please specify)" type="text"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Gender Identity <span class="muted">(Select one)</span></legend>
+        <div class="grid g2">
+          <label><input type="radio" name="gender" value="Woman"> Woman</label>
+          <label><input type="radio" name="gender" value="Man"> Man</label>
+          <label><input type="radio" name="gender" value="Nonbinary"> Nonbinary</label>
+          <label><input type="radio" name="gender" value="Transgender"> Transgender</label>
+          <label><input type="radio" name="gender" value="Genderqueer / Gender non-conforming"> Genderqueer / Gender non-conforming</label>
+          <label><input type="radio" name="gender" value="Two-Spirit"> Two-Spirit</label>
+          <label><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+        </div>
+        <div style="margin-top:8px"><input id="genderOther" placeholder="Other (please specify)" type="text"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Professional Role or Title</legend>
+        <input id="role" placeholder="Your current role/title" type="text" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Sector <span class="muted">(Select one)</span></legend>
+        <div class="grid g2">
+          <label><input type="radio" name="sector" value="Philanthropy / Grantmaking"> Philanthropy / Grantmaking</label>
+          <label><input type="radio" name="sector" value="Nonprofit / Community-based organization"> Nonprofit / Community-based organization</label>
+          <label><input type="radio" name="sector" value="Higher Education / Academia"> Higher Education / Academia</label>
+          <label><input type="radio" name="sector" value="Government / Public Sector"> Government / Public Sector</label>
+          <label><input type="radio" name="sector" value="K–12 Education"> K–12 Education</label>
+          <label><input type="radio" name="sector" value="Health or Human Services"> Health or Human Services</label>
+          <label><input type="radio" name="sector" value="Private / Corporate"> Private / Corporate</label>
+          <label><input type="radio" name="sector" value="Consulting / Intermediary"> Consulting / Intermediary</label>
+          <label><input type="radio" name="sector" value="Grassroots or Movement-based Organization"> Grassroots or Movement-based Organization</label>
+          <label><input type="radio" name="sector" value="Prefer not to say"> Prefer not to say</label>
+        </div>
+        <div style="margin-top:8px"><input id="sectorOther" placeholder="Other (please specify)" type="text"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Years in Leadership Roles <span class="muted">(Select one)</span></legend>
+        <div class="grid g2">
+          <label><input type="radio" name="years" value="Less than 1 year"> Less than 1 year</label>
+          <label><input type="radio" name="years" value="1–3 years"> 1–3 years</label>
+          <label><input type="radio" name="years" value="4–6 years"> 4–6 years</label>
+          <label><input type="radio" name="years" value="7–10 years"> 7–10 years</label>
+          <label><input type="radio" name="years" value="11–15 years"> 11–15 years</label>
+          <label><input type="radio" name="years" value="More than 15 years"> More than 15 years</label>
+          <label><input type="radio" name="years" value="Prefer not to say"> Prefer not to say</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Email for Assessment Results</legend>
+        <div class="grid g2">
+          <label><input type="radio" name="consent" value="Consent to research + receive results"> I consent to be contacted for research and to receive my results</label>
+          <label><input type="radio" name="consent" value="Receive results only"> I would like to receive my individual results, but not be contacted for research</label>
+          <label><input type="radio" name="consent" value="No contact or results"> I do not wish to be contacted or receive results</label>
+        </div>
+        <div class="grid g2" style="margin-top:8px">
+          <input id="email1" placeholder="Email for Assessment Results" type="email" />
+          <input id="email2" placeholder="Confirm Email for Results" type="email" />
+        </div>
+        <div class="grid g2" style="margin-top:8px">
+          <input id="firstName" placeholder="First name" required type="text" />
+          <input id="lastName" placeholder="Last name" required type="text" />
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-2" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar">
+      <div class="track"><div class="bar" id="bar-2"></div></div><div class="pct" id="pct-2">0%</div>
+    </div>
+  </section>
+
+  <!-- PAGES 3–7 (rendered by JS) -->
+  <section class="page" id="page-3">
+    <h2>Reality Reckoning</h2>
+    <p class="muted">Confronting Reality as a Leadership Practice. <em>Mark only one oval per item.</em></p>
+    <div class="principle" data-principle="RR"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-3" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-3"></div></div><div class="pct" id="pct-3">0%</div></div>
+  </section>
+
+  <section class="page" id="page-4">
+    <h2>Indeterminate Becoming</h2>
+    <p class="muted">Navigating Uncertainty and Emergent Possibility in Leadership. <em>Mark only one oval per item.</em></p>
+    <div class="principle" data-principle="IB"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-4" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-4"></div></div><div class="pct" id="pct-4">0%</div></div>
+  </section>
+
+  <section class="page" id="page-5">
+    <h2>Disruptive Engagement</h2>
+    <p class="muted">Confronting Comfort and Practicing Disruption in Leadership. <em>Mark only one oval per item.</em></p>
+    <div class="principle" data-principle="DE"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-5" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-5"></div></div><div class="pct" id="pct-5">0%</div></div>
+  </section>
+
+  <section class="page" id="page-6">
+    <h2>Emancipatory Shift</h2>
+    <p class="muted">Advancing Liberation through Structural Shifts in Leadership. <em>Mark only one oval per item.</em></p>
+    <div class="principle" data-principle="ES"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-6" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-6"></div></div><div class="pct" id="pct-6">0%</div></div>
+  </section>
+
+  <section class="page" id="page-7">
+    <h2>Radical Renewal</h2>
+    <p class="muted">Sustaining Justice-Centered Practice through Radical Renewal. <em>Mark only one oval per item.</em></p>
+    <div class="principle" data-principle="RA"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="prevPage()">Back</button>
+      <button class="btn" id="cont-7" disabled onclick="nextPage()">Continue</button>
+    </div>
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-7"></div></div><div class="pct" id="pct-7">0%</div></div>
+  </section>
+
+  <!-- PAGE 8: RESULTS -->
+  <section class="page" id="page-8">
+    <h2>Thank You for Completing the Assessment</h2>
+    <p>You can expect to receive your personalized results via email if provided. We appreciate your engagement—and your commitment to leading with courage, complexity, and care.</p>
+
+    <div class="actions">
+      <button class="btn" onclick="computeAndShow()">Compute Results</button>
+      <button class="btn secondary" onclick="emailResults()">Email Results</button>
+      <button class="btn secondary" onclick="window.print()">Print / Save PDF</button>
+    </div>
+
+    <h3 style="margin-top:16px">Results</h3>
+    <div id="results" class="results small">Click <b>Compute Results</b> to view your scoring summary.</div>
+
+    <div class="progressbar"><div class="track"><div class="bar" id="bar-8"></div></div><div class="pct" id="pct-8">0%</div></div>
+  </section>
+
+</div>
+
+<script>
+/* ===== Settings ===== */
+const EMAIL_ENDPOINT = ""; // optional serverless URL for silent send (POST)
+const LIKERT = [
+  { v:4, label:'Very much like me' },
+  { v:3, label:'Somewhat like me' },
+  { v:2, label:'Not much like me' },
+  { v:1, label:'Not at all like me' },
+];
+
+/* Principles & Facets */
+const PRINCIPLES = {
+  RR: { name:'Reality Reckoning' },
+  IB: { name:'Indeterminate Becoming' },
+  DE: { name:'Disruptive Engagement' },
+  ES: { name:'Emancipatory Shift' },
+  RA: { name:'Radical Renewal' },
+};
+const FACETS = {
+  SL:'Systemic Literacy', PL:'Positionality Literacy', TTC:'Truth-Telling Capacity',
+  NT:'Nonlinear Thinking', DIF:'Discomfort-Informed Flexibility', EH:'Emergent Humility',
+  IP:'Interruptive Practice', SP:'Solidarity Praxis', DD:'Dialogic Disruption',
+  LI:'Liberatory Imagination', SR:'Systems Reorientation', TPP:'Transformative Policy Praxis',
+  RO:'Regenerative Orientation', CC:'Collective Centering', RtR:'Return to Relation'
+};
+
+/* Interpretive statements (CNCP = principle level) */
+const CNCP = {
+  RR:{ Engaging:'Tasks over systems; equity when prompted.',
+       Enacting:'Naming systemic patterns; integrating power analysis.',
+       Empowering:'Systemic clarity; truth to power; justice non-negotiable.' },
+  IB:{ Engaging:'Prefers predictability; limited adaptivity.',
+       Enacting:'Exploring nonlinear/adaptive approaches.',
+       Empowering:'Thrives in ambiguity; humble, emergent leadership.' },
+  DE:{ Engaging:'Prioritizes cohesion; avoids disruption.',
+       Enacting:'Practicing disruption; naming harm; solidarity.',
+       Empowering:'Principled disruption; accountable solidarity.' },
+  ES:{ Engaging:'Incremental reform focus; redesign feels distant.',
+       Enacting:'Testing equity frameworks; imagining alternatives.',
+       Empowering:'Models transformative futures; embeds justice.' },
+  RA:{ Engaging:'Urgency rhythms; care not central.',
+       Enacting:'Integrating care, interdependence, restoration.',
+       Empowering:'Regenerative leadership; trust and repair.' },
+};
+const FACET_STMT = {
+  SL:{Engaging:'Sees issues as isolated.', Enacting:'Tracing patterns across systems.', Empowering:'Fluent systemic analysis in leadership.'},
+  PL:{Engaging:'Acknowledges identity without power analysis.', Enacting:'Reflecting on privilege/marginalization.', Empowering:'Redistributes power with awareness.'},
+  TTC:{Engaging:'Hesitates to name hard truths.', Enacting:'Developing courage to speak up.', Empowering:'Consistently speaks truth to power.'},
+  NT:{Engaging:'Leans on conventional logic under pressure.', Enacting:'Seeks patterns in complexity.', Empowering:'Leads through complexity and emergence.'},
+  DIF:{Engaging:'Discomfort destabilizes.', Enacting:'Stretching and adapting with curiosity.', Empowering:'Uses uncertainty for growth.'},
+  EH:{Engaging:'Over-relies on expertise.', Enacting:'Learning publicly; listening-centered.', Empowering:'Humble; co-creates and evolves.'},
+  IP:{Engaging:'Unsure how to intervene.', Enacting:'Finding voice to interrupt harm.', Empowering:'Boldly disrupts injustice in real time.'},
+  SP:{Engaging:'Values equity but light on action.', Enacting:'Showing up materially.', Empowering:'Acts in solidarity with risk and resources.'},
+  DD:{Engaging:'Avoids uncomfortable dialogue.', Enacting:'Leans into tough conversations.', Empowering:'Transforms meaning through dialogue.'},
+  LI:{Engaging:'Struggles to imagine alternatives.', Enacting:'Dreaming bigger; possibilities emerging.', Empowering:'Designs liberatory futures.'},
+  SR:{Engaging:'Improves existing systems.', Enacting:'Challenges dominant logics.', Empowering:'Builds equity-centered systems.'},
+  TPP:{Engaging:'Traditional policy approach; misses lived experience.', Enacting:'Brings justice to policy; lifts community voice.', Empowering:'Leads policy change with those most affected.'},
+  RO:{Engaging:'Trapped in urgency.', Enacting:'Shifting to sustainable rhythms.', Empowering:'Stewards energy and repair.'},
+  CC:{Engaging:'Centers personal vision.', Enacting:'Shares power; listens.', Empowering:'Centers collective wisdom from margins.'},
+  RtR:{Engaging:'Avoids relational complexity.', Enacting:'Building trust across difference.', Empowering:'Leads through kinship and repair.'},
+};
+
+/* Item bank: [code, P, F, reverse(0/1), stem text] */
+const ITEMS = [
+  // RR – SL
+  ["RR_SL_1","RR","SL",0,"I analyze institutional data through the lens of power and privilege."],
+  ["RR_SL_2","RR","SL",0,"I understand how historical injustices continue to shape institutions today."],
+  ["RR_SL_3","RR","SL",1,"I believe most current inequities are due to personal choices."],
+  ["RR_SL_4","RR","SL",1,"I mostly focus on individual effort when analyzing success or failure."],
+  ["RR_SL_5","RR","SL",1,"I think policies are generally fair."],
+  ["RR_SL_6","RR","SL",0,"I connect present-day disparities to historical patterns of exclusion."],
+  // RR – PL
+  ["RR_PL_1","RR","PL",0,"I can identify who holds power in decision-making processes."],
+  ["RR_PL_2","RR","PL",0,"I analyze how power circulates through informal networks."],
+  ["RR_PL_3","RR","PL",0,"I reflect on how I benefit from systems of power and privilege."],
+  ["RR_PL_4","RR","PL",0,"I seek to decentralize decision-making whenever possible."],
+  ["RR_PL_5","RR","PL",1,"Organizational charts generally reflect how power actually works."],
+  ["RR_PL_6","RR","PL",1,"I focus only on my immediate role and responsibilities."],
+  // RR – TTC
+  ["RR_TTC_1","RR","TTC",0,"I feel empowered to call out injustice in real time."],
+  ["RR_TTC_2","RR","TTC",0,"I am honest about organizational failures even when its risky."],
+  ["RR_TTC_3","RR","TTC",0,"I provide candid feedback about equity-related issues."],
+  ["RR_TTC_4","RR","TTC",0,"I support others who speak truth to power."],
+  ["RR_TTC_5","RR","TTC",0,"I hold myself and others accountable for the impact of our actions."],
+  ["RR_TTC_6","RR","TTC",1,"I choose my words carefully to avoid upsetting those around me."],
+  // IB – NT
+  ["IB_NT_1","IB","NT",1,"I prefer clear solutions and predictable outcomes."],
+  ["IB_NT_2","IB","NT",1,"I try to reduce ambiguity as much as possible when making decisions."],
+  ["IB_NT_3","IB","NT",1,"I typically stick with the most direct or efficient path to reach a solution."],
+  ["IB_NT_4","IB","NT",0,"I prefer processes that allow space for unexpected results."],
+  ["IB_NT_5","IB","NT",0,"I value experimental approaches."],
+  // IB – DIF
+  ["IB_DIF_1","IB","DIF",1,"I have a clear sense of the leader I am."],
+  ["IB_DIF_2","IB","DIF",0,"I reflect on how aspects of my identity influence the way I lead."],
+  ["IB_DIF_3","IB","DIF",1,"I separate my personal identity from my leadership role."],
+  ["IB_DIF_4","IB","DIF",1,"I lead the same way regardless of who I'm with or where I am."],
+  ["IB_DIF_5","IB","DIF",0,"I welcome feedback that challenges how I see myself as a leader."],
+  // IB – EH
+  ["IB_EH_1","IB","EH",0,"I actively listen to perspectives that challenge my worldview."],
+  ["IB_EH_2","IB","EH",1,"Admitting I was wrong feels like a threat to my credibility."],
+  ["IB_EH_3","IB","EH",0,"I embrace not knowing."],
+  ["IB_EH_4","IB","EH",0,"I avoid assuming I'm an expert just because of my position or title."],
+  ["IB_EH_5","IB","EH",1,"I rarely change my opinion once I've made it."],
+  ["IB_EH_6","IB","EH",0,"I value insight from those with lived experience."],
+  // DE – IP
+  ["DE_IP_1","DE","IP",0,"I intentionally disrupt exclusionary norms."],
+  ["DE_IP_2","DE","IP",0,"I critique dominant ideologies embedded in policies and practices."],
+  ["DE_IP_3","DE","IP",0,"I resist silence when harm is occurring."],
+  ["DE_IP_4","DE","IP",0,"I use my platform to amplify counter-narratives."],
+  ["DE_IP_5","DE","IP",1,"I tend to stay silent when harm occurs unless I'm directly involved."],
+  // DE – SP
+  ["DE_SP_1","DE","SP",0,"I take risks to support colleagues with less power."],
+  ["DE_SP_2","DE","SP",0,"I act in solidarity rather than just speaking."],
+  ["DE_SP_3","DE","SP",0,"I intervene when I witness microaggressions or harmful behavior."],
+  ["DE_SP_4","DE","SP",0,"I share resources and opportunities to shift access and inclusion."],
+  ["DE_SP_5","DE","SP",1,"I try not to get involved when power dynamics are uneven."],
+  ["DE_SP_6","DE","SP",0,"I leverage privilege to push for justice."],
+  // DE – DD
+  ["DE_DD_1","DE","DD",1,"I avoid conversations where people express strong emotions."],
+  ["DE_DD_2","DE","DD",0,"I stay engaged in conversations that make me uncomfortable."],
+  ["DE_DD_3","DE","DD",0,"I receive critical feedback without becoming defensive."],
+  ["DE_DD_4","DE","DD",0,"I am willing to feel discomfort for growth."],
+  ["DE_DD_5","DE","DD",0,"I help create brave spaces for authentic conversation."],
+  ["DE_DD_6","DE","DD",1,"I often feel irritated or invalidated when others push back on my ideas."],
+  // ES – LI
+  ["ES_LI_2","ES","LI",0,"I envision bold futures beyond incremental change."],
+  ["ES_LI_3","ES","LI",0,"I co-create with others to imagine new possibilities for justice."],
+  ["ES_LI_4","ES","LI",0,"I allow creativity to drive transformation."],
+  ["ES_LI_5","ES","LI",0,"I help others dream beyond constraints."],
+  // ES – SR
+  ["ES_SR_1","ES","SR",0,"I take specific actions to shift decision-making, resources, or influence toward those most impacted within the systems I’m part of."],
+  ["ES_SR_2","ES","SR",0,"I question structures that perpetuate inequity."],
+  ["ES_SR_3","ES","SR",0,"I advocate for system-level redesigns."],
+  ["ES_SR_4","ES","SR",0,"I prioritize equity in resource allocation."],
+  ["ES_SR_5","ES","SR",0,"I support participatory approaches to decision-making."],
+  // ES – TPP
+  ["ES_TPP_1","ES","TPP",0,"I review policies for their equity implications."],
+  ["ES_TPP_2","ES","TPP",0,"I revise practices to align with justice values."],
+  ["ES_TPP_3","ES","TPP",1,"I create accountability mechanisms to track impact."],
+  ["ES_TPP_4","ES","TPP",0,"I integrate marginalized voices into policy design and review processes."],
+  ["ES_TPP_5","ES","TPP",0,"I ensure equity is embedded in how we measure success."],
+  // RA – RO
+  ["RA_RO_1","RA","RO",1,"I view consequences as an essential step toward meaningful repair."],
+  ["RA_RO_2","RA","RO",0,"I invest in repairing harm when it occurs."],
+  ["RA_RO_3","RA","RO",0,"I support healing processes in organization."],
+  ["RA_RO_4","RA","RO",0,"I prioritize relationship repair over punishment."],
+  ["RA_RO_5","RA","RO",0,"I engage in collective restoration after conflict."],
+  // RA – CC
+  ["RA_CC_1","RA","CC",0,"I elevate team wellness over individual accolades."],
+  ["RA_CC_2","RA","CC",0,"I foster a culture of interdependence."],
+  ["RA_CC_3","RA","CC",0,"I prioritize community voice in decision-making."],
+  ["RA_CC_4","RA","CC",0,"I measure success through collective impact."],
+  ["RA_CC_5","RA","CC",0,"I celebrate shared leadership and distributed power."],
+  // RA – RtR
+  ["RA_RtR_1","RA","RtR",0,"I build in time for reflection and regeneration."],
+  ["RA_RtR_2","RA","RtR",0,"I model self-care as a leadership value."],
+  ["RA_RtR_3","RA","RtR",0,"I promote systems that prevent burnout in equity work."],
+  ["RA_RtR_4","RA","RtR",0,"I recognize renewal as essential for equity leadership."],
+  ["RA_RtR_5","RA","RtR",0,"I appreciate leadership that integrates rest and resistance."],
+];
+
+/* ===== Render items per principle ===== */
+function renderPrinciplePages(){
+  document.querySelectorAll('.principle').forEach(container=>{
+    const P = container.getAttribute('data-principle');
+    const subset = ITEMS.filter(it=>it[1]===P);
+    let html = '';
+    subset.forEach(([code,PP,F,R,text])=>{
+      html += `<fieldset class="stem-group" data-required="true">
+        <legend class="stem">${text} <span class="muted">*</span></legend>
+        <div class="small muted" style="margin-bottom:6px">Mark only one oval.</div>
+        <div class="grid g4">`;
+      LIKERT.forEach(opt=>{
+        const id = `${code}_${opt.v}`;
+        html += `<label class="opt" for="${id}">
+          <input type="radio" name="${code}" id="${id}" value="${opt.v}"> ${opt.label}
+        </label>`;
+      });
+      html += `</div></fieldset>`;
+    });
+    container.innerHTML = html;
+  });
+}
+
+/* ===== Navigation, gating & progress ===== */
+const PAGE_ORDER = [1,2,3,4,5,6,7,8];
+let currentPage = 1;
+
+function showPage(n){
+  currentPage = n;
+  PAGE_ORDER.forEach(i=>{
+    const s = document.getElementById(`page-${i}`);
+    if (s) s.classList.toggle('active', i===n);
+  });
+  updateBars();
+  updateContinueState();
+}
+function nextPage(){
+  if (!validatePage(currentPage,true)) return;
+  const n = Math.min(currentPage+1, PAGE_ORDER[PAGE_ORDER.length-1]);
+  showPage(n);
+}
+function prevPage(){
+  const n = Math.max(currentPage-1, PAGE_ORDER[0]);
+  showPage(n);
+}
+
+function pageStemsComplete(n){
+  const sec = document.getElementById(`page-${n}`);
+  if(!sec) return true;
+  const groups = sec.querySelectorAll('.stem-group[data-required="true"]');
+  if (!groups.length) return true;
+  return Array.from(groups).every(fs => !!fs.querySelector('input[type="radio"]:checked'));
+}
+function demographicsComplete(){
+  const first = document.getElementById('firstName')?.value.trim();
+  const last  = document.getElementById('lastName')?.value.trim();
+  if(!first || !last) return false;
+  const e1 = document.getElementById('email1')?.value.trim();
+  const e2 = document.getElementById('email2')?.value.trim();
+  if(e1 || e2){ if(!e1 || !e2 || e1!==e2) return false; }
+  return true;
+}
+function validatePage(n, alertUser=false){
+  if(n===2){
+    const ok = demographicsComplete();
+    if(!ok && alertUser) alert('Please complete required name fields and make sure emails match (if provided).');
+    return ok;
+  }
+  if([3,4,5,6,7].includes(n)){
+    const ok = pageStemsComplete(n);
+    if(!ok && alertUser) alert('Please answer all items on this page.');
+    return ok;
+  }
+  return true;
+}
+function updateContinueState(){
+  const btn = document.getElementById(`cont-${currentPage}`);
+  if (!btn) return;
+  btn.disabled = !validatePage(currentPage,false);
+}
+function totalAnswered(){
+  return document.querySelectorAll("input[type='radio']:checked").length;
+}
+function updateBars(){
+  const answered = totalAnswered();
+  const total = ITEMS.length;
+  const pct = total ? Math.round(answered/total*100) : 0;
+  PAGE_ORDER.forEach(i=>{
+    const b = document.getElementById(`bar-${i}`);
+    const p = document.getElementById(`pct-${i}`);
+    if (b) b.style.width = pct + '%';
+    if (p) p.textContent = pct + '%';
+  });
+}
+
+/* auto-advance when page complete */
+document.addEventListener('change', (e)=>{
+  if (e.target && e.target.matches("input[type='radio']")) {
+    const name = e.target.name;
+    document.querySelectorAll(`input[name='${name}']`).forEach(inp=>{
+      inp.parentElement.classList.toggle('sel', inp.checked);
+    });
+    updateBars();
+    updateContinueState();
+    if (validatePage(currentPage,false) && [3,4,5,6,7].includes(currentPage)) nextPage();
+  }
+});
+document.addEventListener('input', ()=>{
+  if(currentPage===2) updateContinueState();
+});
+
+/* ===== Scoring ===== */
+function rev(val, reversed){ return reversed ? (5 - val) : val; } // 4->1, 3->2, 2->3, 1->4
+function to100(avg4){ return Math.round(avg4 * 25); } // 1–4 -> 25–100
+function tier(score){ return score<62 ? 'Engaging' : score<86 ? 'Enacting' : 'Empowering'; }
+
+function collectResponses(){
+  const map = {};
+  ITEMS.forEach(([code])=>{
+    const sel = document.querySelector(`input[name='${code}']:checked`);
+    if (sel) map[code] = parseInt(sel.value,10);
+  });
+  return map;
+}
+function collectMeta(){
+  const race = Array.from(document.querySelectorAll("input[name='race']:checked")).map(i=>i.value);
+  const raceOther = document.getElementById('raceOther')?.value?.trim();
+  if (raceOther) race.push(`Other: ${raceOther}`);
+
+  const genderSel = (document.querySelector("input[name='gender']:checked")||{}).value || '';
+  const genderOther = document.getElementById('genderOther')?.value?.trim();
+  const gender = genderOther ? `${genderSel || 'Other'}; ${genderOther}` : genderSel;
+
+  const sectorSel = (document.querySelector("input[name='sector']:checked")||{}).value || '';
+  const sectorOther = document.getElementById('sectorOther')?.value?.trim();
+  const sector = sectorOther ? `${sectorSel || 'Other'}; ${sectorOther}` : sectorSel;
+
+  const years = (document.querySelector("input[name='years']:checked")||{}).value || '';
+  const consent = (document.querySelector("input[name='consent']:checked")||{}).value || '';
+
+  return {
+    race, gender, sector, years, consent,
+    role: document.getElementById('role')?.value?.trim() || '',
+    email1: document.getElementById('email1')?.value?.trim() || '',
+    email2: document.getElementById('email2')?.value?.trim() || '',
+    firstName: document.getElementById('firstName')?.value?.trim() || '',
+    lastName: document.getElementById('lastName')?.value?.trim() || '',
+  };
+}
+function computeScores(resp){
+  const facetAgg = {}; // "P:F" -> {sum, n}
+  const PtoFacetAvgs = {}; // P -> [facet avg(1–4)]
+  ITEMS.forEach(([code,P,F,R])=>{
+    if(!(code in resp)) return;
+    const val = rev(resp[code], !!R);
+    const key = `${P}:${F}`;
+    (facetAgg[key] ||= {sum:0,n:0}).sum += val;
+    facetAgg[key].n++;
+  });
+
+  const facetScores = {};
+  Object.entries(facetAgg).forEach(([key,agg])=>{
+    const avg = agg.sum/agg.n;
+    const score = to100(avg);
+    facetScores[key] = { avg, score, tier: tier(score) };
+    const P = key.split(':')[0];
+    (PtoFacetAvgs[P] ||= []).push(avg);
+  });
+
+  const principleScores = {};
+  Object.entries(PtoFacetAvgs).forEach(([P,avgs])=>{
+    const avg = avgs.reduce((a,b)=>a+b,0)/avgs.length;
+    const score = to100(avg);
+    principleScores[P] = { avg, score, tier: tier(score) };
+  });
+
+  return { facetScores, principleScores };
+}
+
+function computeAndShow(){
+  const resp = collectResponses();
+  const { facetScores, principleScores } = computeScores(resp);
+  const meta = collectMeta();
+
+  let html = '';
+  html += `<div><b>Participant:</b> ${escapeHtml(meta.firstName)} ${escapeHtml(meta.lastName)} — ${escapeHtml(meta.email1)}</div>`;
+  html += `<div class="muted" style="margin:6px 0 10px">${new Date().toLocaleString()}</div>`;
+
+  html += `<h4>Principle Scores</h4>`;
+  Object.keys(PRINCIPLES).forEach(P=>{
+    const s = principleScores[P];
+    if(!s){ html += `<div><b>${PRINCIPLES[P].name}</b>: <span class="muted">No data</span></div>`; return; }
+    html += `<div><b>${PRINCIPLES[P].name}</b> — <span class="small">${s.score}/100</span> <span class="muted">${s.tier}</span><br/><span class="small">${CNCP[P][s.tier]}</span></div>`;
+  });
+
+  html += `<h4 style="margin-top:12px">Practice Facet Scores</h4>`;
+  Object.entries(facetScores).forEach(([key,s])=>{
+    const [P,F] = key.split(':');
+    html += `<div><b>${FACETS[F]} (${P})</b> — <span class="small">${s.score}/100</span> <span class="muted">${s.tier}</span><br/><span class="small">${FACET_STMT[F][s.tier]}</span></div>`;
+  });
+
+  document.getElementById('results').innerHTML = html;
+}
+
+async function emailResults(){
+  const bodyText = buildEmailBody();
+  const payload = {
+    to: 'empowering.voices@outlook.com',
+    subject: 'RISE Index Results',
+    text: bodyText,
+    html: bodyText.replace(/\n/g,'<br/>'),
+    meta: collectMeta(),
+  };
+  if (EMAIL_ENDPOINT){
+    try{
+      const res = await fetch(EMAIL_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      if (res.ok){ alert('Results sent to empowering.voices@outlook.com.'); return; }
+    }catch(e){ console.warn('Serverless email failed, falling back to mailto:', e); }
+  }
+  const mailto = `mailto:empowering.voices@outlook.com?subject=${encodeURIComponent('RISE Index Results')}&body=${encodeURIComponent(bodyText)}`;
+  window.location.href = mailto;
+}
+
+function buildEmailBody(){
+  const resp = collectResponses();
+  const { facetScores, principleScores } = computeScores(resp);
+  const meta = collectMeta();
+  const lines = [];
+  lines.push('RISE Index – Results');
+  lines.push(`Name: ${meta.firstName} ${meta.lastName}`);
+  lines.push(`Email: ${meta.email1}`);
+  lines.push(`Role: ${meta.role}`);
+  lines.push('');
+  lines.push('Principle Scores (score/100 – tier)');
+  Object.keys(PRINCIPLES).forEach(P=>{
+    const s = principleScores[P];
+    if (s) lines.push(`${PRINCIPLES[P].name}: ${s.score} – ${s.tier} | ${CNCP[P][s.tier]}`);
+  });
+  lines.push('');
+  lines.push('Practice Facet Scores (score/100 – tier)');
+  Object.entries(facetScores).forEach(([key,s])=>{
+    const [P,F] = key.split(':');
+    lines.push(`${FACETS[F]} (${P}): ${s.score} – ${s.tier} | ${FACET_STMT[F][s.tier]}`);
+  });
+  return lines.join('\n');
+}
+
+/* Utils */
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+
+/* Init */
+window.addEventListener('DOMContentLoaded', ()=>{
+  renderPrinciplePages();
+  showPage(1);
+});
+</script>
+</body>
+</html>
